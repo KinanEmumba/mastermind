@@ -12,6 +12,13 @@ export type ColorType = keyof typeof Colors;
 export const randomColor = () => {
   const rand = Math.floor(Math.random() * Object.keys(Colors).length);
   const randomColorKey = Object.keys(Colors)[rand] as ColorType;
-  const randColorValue = Colors[randomColorKey];
-  return {key: randomColorKey, value: randColorValue};
+  return randomColorKey;
+};
+
+export const toGuess = () => {
+  const toGuessArray: ColorType[] = [];
+  for (let x=0; x<4; x++) {
+    toGuessArray.push(randomColor());
+  }
+  return toGuessArray;
 };

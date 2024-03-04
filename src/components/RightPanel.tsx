@@ -12,7 +12,11 @@ const StyledRightPanel = styled.div`
   border: 1px solid black;
 `;
 
-const RightPanel = ({onRightCircleClick}: {onRightCircleClick: (color: string) => void}) => {
+const RightPanel = ({
+  onRightCircleClick
+}: {
+  onRightCircleClick: (color: ColorType) => void
+}) => {
   const colorArray = Object.keys(Colors) as ColorType[];
   return (
     <StyledRightPanel>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Circle from './Circle';
 import OutputCircles from './OutputCircles';
@@ -14,21 +15,59 @@ const StyledPanel = styled.div`
 `;
 
 const SinglePanel = ({
-  panelState,
-  onCircleClick,
+  selectedColor
 }: {
-  panelState: {selected: boolean, color: ColorType}[],
-  onCircleClick: (index: number) => void;
+  selectedColor: ColorType | null
 }) => {
-  console.log('pannel items', panelState);
+  const allUnselected = new Array(4).fill({color: undefined, selected: false});
+  const [panelState, setPanelState] = useState(allUnselected);
+  const [selectedCircle, setSelectedCircle] = useState<undefined | number>(undefined);
+  const [allSelected, setAllSelected] = useState(false);
+
+  useEffect(() => {
+    let allSelectedFlag = true;
+    panelState.forEach(circle => {
+      allSelectedFlag = !!circle.color && allSelectedFlag
+    });
+    setAllSelected(allSelectedFlag);
+  }, [panelState]);
+  
+  useEffect(() => {
+    if (selectedColor && selectedCircle !== undefined) {
+      const selectionArr = panelState.map((item, itemIndex) => {
+        return {
+          selected: item.selected,
+          color: itemIndex === selectedCircle ? selectedColor : panelState[itemIndex].color
+        };
+      });
+      setPanelState(selectionArr);
+    }
+  }, [panelState, selectedCircle, selectedColor]);
+
+  const onCircleClick = (index: number) => {
+    const selectionArr = panelState.map((item, itemIndex) => {
+      return {
+        selected: (itemIndex === index),
+        color: item.color
+      };
+    });
+    setSelectedCircle(index);
+    setPanelState(selectionArr);
+  };
+
   return (
     <StyledPanel>
-      {panelState.map((val, index) => <Circle
-        key={index}
-        color={Colors[val.color]}
-        isSelected={val.selected}
-        onClick={() => onCircleClick(index)}
-      />)}
+      {panelState.map((val, index) => {
+        return (
+          <Circle
+            key={index}
+            color={Colors[val.color as ColorType]}
+            isSelected={val.selected}
+            onClick={() => onCircleClick(index)}
+          />
+        )
+      })}
+      {allSelected && '✓'}
       <OutputCircles />
     </StyledPanel>
   )

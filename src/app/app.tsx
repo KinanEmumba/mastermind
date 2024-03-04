@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import RightPanel from "../components/RightPanel";
 import SinglePanel from "../components/SinglePanel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ColorType, toGuess } from "../utils";
 
 const StyledLayout = styled.div`
   display: flex;
@@ -11,34 +12,23 @@ const StyledLayout = styled.div`
 `;
 
 export function App() {
-  const allUnselected = new Array(4).fill({color: undefined, selected: false});
-  const [panelState, setPanelState] = useState(allUnselected);
-  const [selectedCircle, setSelectedCircle] = useState<undefined | number>(undefined);
+  const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
+  const [patternToGuess] = useState(toGuess());
+  console.log('patternToGuess', patternToGuess);
 
-  const onCircleClick = (index: number) => {
-    const newArr = [...panelState].map((item, itemIndex) => {
-      item.selected = (itemIndex === index);
-      return item;
-    });
-    setSelectedCircle(index);
-    setPanelState(newArr);
-  };
+  useEffect(() => {
+    if (selectedColor) {
+      setSelectedColor(null);
+    }
+  },[selectedColor]);
 
-  const onRightCircleClick = (color: string) => {
-    if (!selectedCircle) return;
-    const newArr = [...panelState];
-    const newObj = newArr[selectedCircle];
-    newObj.color = color;
-    newArr[selectedCircle] = newObj;
-    setPanelState(newArr);
+  const onRightCircleClick = (color: ColorType) => {
+    setSelectedColor(color)
   };
 
   return (
     <StyledLayout>
-      <SinglePanel
-        onCircleClick={onCircleClick}
-        panelState={panelState}
-      />
+      <SinglePanel selectedColor={selectedColor}/>
       <RightPanel onRightCircleClick={onRightCircleClick}/>
     </StyledLayout>
   );
