@@ -1,25 +1,35 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export type StyledCircleProps = {
   color?: string,
   isSelectable?: boolean,
-  isSelected?: boolean,
+  isSelected?: boolean | string,
+  onClick?: () => void
 };
 
+const StyledCircleContainer = styled.div`
+  flex: 1;
+  display: flex;
+  margin: 5px;
+`;
 const StyledCircle = styled.div<StyledCircleProps>`
   width: 50px;
   height: 50px;
   border-radius: 50px;
-  margin: 5px;
-  background: ${(props) => (props.color || 'black')};
-  border: ${(props) => (props.isSelected ? '2px solid black' : 'none')}
+  cursor: pointer;
+  background: ${(props) => (props.color || 'transparent')};
+  border: ${(props) => (props.isSelected ? '2px solid black' : '1px solid black')}
 `;
 
-const Circle = ({color, isSelected}: StyledCircleProps) => {
-
+const Circle = ({color, isSelected, onClick}: StyledCircleProps) => {
   return (
-    <StyledCircle color={color} isSelected={isSelected}/>
+    <StyledCircleContainer>
+      <StyledCircle
+        color={color}
+        isSelected={isSelected}
+        onClick={onClick}
+      />
+    </StyledCircleContainer>
   )
 }
 

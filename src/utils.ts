@@ -13,5 +13,5 @@ export const randomColor = () => {
   const rand = Math.floor(Math.random() * Object.keys(Colors).length);
   const randomColorKey = Object.keys(Colors)[rand] as ColorType;
   const randColorValue = Colors[randomColorKey];
-  return randColorValue;
+  return {key: randomColorKey, value: randColorValue};
 };
