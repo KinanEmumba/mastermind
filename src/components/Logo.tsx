@@ -16,7 +16,6 @@ const LogoStyle = styled.span`
   color: ${props => props.color? 'white' : 'black'};
 `;
 
-
 const Logo = () => {
   const name1 = 'master';
   const name2 = 'mind';

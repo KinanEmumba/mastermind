@@ -13,3 +13,6 @@ export type StyledCircleProps = {
   isSelected?: boolean | string,
   onClick?: () => void
 };
+
+export type NewPanelData = {correctGuess: boolean, panelState: PanelStateObjectType[]};
+export type AddNewPanelType = ({correctGuess, panelState} : NewPanelData) => void

@@ -3,7 +3,7 @@ import Circle from 'src/components/Circle';
 import OutputCircles from 'src/components/OutputCircles';
 import { Colors, compareValues } from 'src/utils';
 import { StyledPanel, TickButton } from 'src/components/panel-styles';
-import { ColorType, PanelStateObjectType } from 'src/shared-types';
+import { AddNewPanelType, ColorType } from 'src/shared-types';
 
 const SinglePanel = ({
   selectedColor,
@@ -14,7 +14,7 @@ const SinglePanel = ({
   selectedColor: ColorType | null,
   patternToGuess: ColorType[],
   active: boolean,
-  addNewPanel: ({panelState}: {panelState: PanelStateObjectType[]}) => void;
+  addNewPanel: AddNewPanelType
 }) => {
   const allUnselected = new Array(4).fill({color: undefined, selected: false});
   const [panelState, setPanelState] = useState(allUnselected);
@@ -58,9 +58,7 @@ const SinglePanel = ({
   const onTickClick = () => {
     const correctGuess = compareValues({patternToGuess, panelState});
     console.log('correctGuess', correctGuess);
-    if (!correctGuess) {
-      addNewPanel({panelState});
-    } else alert('won!');
+    addNewPanel({panelState, correctGuess});
   };
 
   return (
