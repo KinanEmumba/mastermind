@@ -6,6 +6,7 @@ import SinglePanel from "src/components/SinglePanel";
 import { toGuess } from "src/utils";
 import { PanelsContainer, StyledLayout } from "src/app/layout-styles";
 import { NewPanelData, ColorType, PanelStateObjectType } from "src/shared-types";
+import Turns from "src/components/Turns";
 
 export type PanelObjectType = {
   panel: undefined | PanelStateObjectType[]
@@ -63,7 +64,7 @@ export function App() {
     <>
       <Logo />
       <ShowRules />
-      {turns}
+      <Turns turns={turns}/>
       <StyledLayout>
         <PanelsContainer>
           {inputPanels.map((pan, index) => {
@@ -85,3 +86,6 @@ export function App() {
 }
 
 export default App;
+
+// Layout containers
+// Custom hooks instead of multiple props

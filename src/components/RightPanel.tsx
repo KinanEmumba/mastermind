@@ -10,7 +10,6 @@ const StyledRightPanel = styled.div`
   justify-content: space-evenly;
   max-width: 100px;
   margin: 0px 20px;
-  border: 1px solid black;
 `;
 
 const RightPanel = ({

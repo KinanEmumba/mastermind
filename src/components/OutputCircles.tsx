@@ -18,13 +18,17 @@ const StyledOutputCircle = styled.div`
 	border: 1px solid black;
 `;
 
-const OutputCircles = () => {
+const OutputCircles = ({answers}: {answers: string[]}) => {
+	console.log('asnwers', answers);
 	return (
 		<StyledOutputContainer>
-			<StyledOutputCircle />
-			<StyledOutputCircle />
-			<StyledOutputCircle />
-			<StyledOutputCircle />
+			{answers.map((ans, index) => {
+				return (
+					<StyledOutputCircle key={index}>
+						{ans ? '✓' : ''}
+					</StyledOutputCircle>
+				);
+			})}
 		</StyledOutputContainer>
 	)
 }

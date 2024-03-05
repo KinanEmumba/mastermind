@@ -15,7 +15,7 @@ const ShowRulesInnerContainer = styled.div`
 `;
 
 const ShowRulesButton = styled.div`
-  cursoir: pointer;
+  cursor: pointer;
   font-size: 20px;
   font-weight: 400;
   margin: 10px 0px;
@@ -37,3 +37,4 @@ const ShowRules = () => {
 }
 
 export default ShowRules
+// use template string or styles instead of spaces

@@ -31,13 +31,16 @@ export const compareValues = ({
   panelState: {color: ColorType}[],
 }) => {
   const currentColors = panelState.map(obj => obj.color);
+  console.log('patternToGuess', patternToGuess);
+  console.log('currentColors', currentColors);
   let allSameFlag = true;
-  // console.log('patternToGuess', patternToGuess);
-  // console.log('currentColors', currentColors);
+  const answers: boolean[] = [];
   currentColors.forEach((col, index) => {
-    allSameFlag = col === patternToGuess[index]
+    const sameColor = col === patternToGuess[index];
+    allSameFlag = allSameFlag && sameColor;
+    answers.push(sameColor);
   });
-  return allSameFlag;
+  return {correctGuess: allSameFlag, answers};
 };
 
 export const rules = `Try to guess the pattern, in both order and color, within ten turns.

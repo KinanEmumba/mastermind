@@ -4,6 +4,7 @@ import OutputCircles from 'src/components/OutputCircles';
 import { Colors, compareValues } from 'src/utils';
 import { StyledPanel, TickButton } from 'src/components/panel-styles';
 import { AddNewPanelType, ColorType } from 'src/shared-types';
+import { Flex2, FlexHalf } from 'src/app/layout-styles';
 
 const SinglePanel = ({
   selectedColor,
@@ -18,6 +19,7 @@ const SinglePanel = ({
 }) => {
   const allUnselected = new Array(4).fill({color: undefined, selected: false});
   const [panelState, setPanelState] = useState(allUnselected);
+  const [answers, setAnswers] = useState(new Array(4).fill(''));
   const [selectedCircle, setSelectedCircle] = useState<undefined | number>(undefined);
   const [allSelected, setAllSelected] = useState(false);
 
@@ -56,27 +58,35 @@ const SinglePanel = ({
   };
 
   const onTickClick = () => {
-    const correctGuess = compareValues({patternToGuess, panelState});
+    const {correctGuess, answers} = compareValues({patternToGuess, panelState});
     console.log('correctGuess', correctGuess);
+    setAnswers(answers);
     addNewPanel({panelState, correctGuess});
   };
 
   return (
     <StyledPanel active={active}>
-      {panelState.map((val, index) => {
-        return (
-          <Circle
-            key={index}
-            color={Colors[val.color as ColorType]}
-            isSelected={val.selected}
-            onClick={() => onCircleClick(index)}
-          />
-        )
-      })}
-      {allSelected && active && <TickButton onClick={onTickClick}>
-        ✓
-      </TickButton>}
-      <OutputCircles />
+      <Flex2>
+        {panelState.map((val, index) => {
+          return (
+            <Circle
+              key={index}
+              color={Colors[val.color as ColorType]}
+              isSelected={val.selected}
+              onClick={() => onCircleClick(index)}
+            />
+          )
+        })}
+      </Flex2>
+      <FlexHalf>
+        {allSelected && active &&
+        <TickButton onClick={onTickClick}>
+          ✓
+        </TickButton>}
+      </FlexHalf>
+      <FlexHalf>
+        <OutputCircles answers={answers}/>
+      </FlexHalf>
     </StyledPanel>
   )
 }

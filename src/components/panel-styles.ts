@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StyledPanel = styled.div<{active: boolean}>`
   display: flex;
+  flex: 1;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
