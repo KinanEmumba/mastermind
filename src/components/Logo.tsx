@@ -4,12 +4,12 @@ import { ColorType } from 'src/shared-types';
 
 const LogoContainer = styled.div`
   display: flex;
-  justify-content: center;
   margin: 20px;
+  justify-content: center;
 `;
 
 const LogoStyle = styled.span`
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 800;
   padding: 10px;
   background: ${props => props.color && props.color};

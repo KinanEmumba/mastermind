@@ -4,13 +4,7 @@ import styled from 'styled-components';
 
 const ShowRulesContainer = styled.div`
   display: flex;
-  justify-content: center;
   margin: 20px;
-`;
-
-const ShowRulesInnerContainer = styled.div`
-  display: flex;
-  width: 50vh;
   flex-direction: column;
 `;
 
@@ -25,16 +19,12 @@ const ShowRules = () => {
   const [rulesVisible, setRulesVisible] = useState(false);
   return (
     <ShowRulesContainer>
-      <ShowRulesInnerContainer>
-        <ShowRulesButton onClick={() => setRulesVisible(prev => !prev)}>
-          {!rulesVisible ? 'Show' : 'Hide'}
-          {' rules'}
-        </ShowRulesButton>
-        {rulesVisible && rules}
-      </ShowRulesInnerContainer>
+      <ShowRulesButton onClick={() => setRulesVisible(prev => !prev)}>
+        {`${!rulesVisible ? 'Show' : 'Hide'} rules`}
+      </ShowRulesButton>
+      {rulesVisible && rules}
     </ShowRulesContainer>
   )
 }
 
 export default ShowRules
-// use template string or styles instead of spaces

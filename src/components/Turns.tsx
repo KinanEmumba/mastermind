@@ -2,14 +2,7 @@ import styled from "styled-components";
 
 export const ShowTurnsContainer = styled.div`
   display: flex;
-  justify-content: center;
   margin: 20px;
-`;
-
-export const ShowTurnsInnerContainer = styled.div`
-  display: flex;
-  width: 50vh;
-  flex-direction: column;
 `;
 
 const ShowTurnsSpan = styled.span`
@@ -22,11 +15,9 @@ const ShowTurnsSpan = styled.span`
 const Turns = ({turns}: {turns: number}) => {
   return (
     <ShowTurnsContainer>
-      <ShowTurnsInnerContainer>
-        <ShowTurnsSpan>
-          Turns remaining: {turns}
-        </ShowTurnsSpan>
-      </ShowTurnsInnerContainer>
+      <ShowTurnsSpan>
+        Turns remaining: {turns}
+      </ShowTurnsSpan>
     </ShowTurnsContainer>
   )
 }

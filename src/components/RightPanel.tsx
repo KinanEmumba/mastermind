@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Circle from 'src/components/Circle';
 import { Colors } from 'src/utils';
-import { ColorType } from 'src/shared-types';
+import { ColorType, SetColorType } from 'src/shared-types';
 
 const StyledRightPanel = styled.div`
   display: flex;
@@ -13,9 +13,9 @@ const StyledRightPanel = styled.div`
 `;
 
 const RightPanel = ({
-  onRightCircleClick
+  setClickedColor
 }: {
-  onRightCircleClick: (color: ColorType) => void
+  setClickedColor: SetColorType
 }) => {
   const colorArray = Object.keys(Colors) as ColorType[];
   return (
@@ -25,7 +25,7 @@ const RightPanel = ({
           <Circle
             key={index}
             color={Colors[color]}
-            onClick={() => onRightCircleClick(color)}
+            onClick={() => setClickedColor(color)}
           />
         );
       })}

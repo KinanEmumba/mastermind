@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
+export const FullContainer = styled.div`
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  width: 40%;
+`;
+
 export const StyledLayout = styled.div`
   display: flex;
   flex-direction: row;
-  height: auto;
-  align-items: flex-start;
   justify-content: center;
 `;
 

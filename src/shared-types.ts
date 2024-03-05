@@ -1,6 +1,8 @@
+import { Dispatch, SetStateAction } from "react";
 import { Colors } from "src/utils";
 
 export type ColorType = keyof typeof Colors;
+export type SetColorType = Dispatch<SetStateAction<string | ColorType>>;
 
 export type PanelStateObjectType = {
   color: ColorType | undefined,

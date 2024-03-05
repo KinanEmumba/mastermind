@@ -3,20 +3,23 @@ import Circle from 'src/components/Circle';
 import OutputCircles from 'src/components/OutputCircles';
 import { Colors, compareValues } from 'src/utils';
 import { StyledPanel, TickButton } from 'src/components/panel-styles';
-import { AddNewPanelType, ColorType } from 'src/shared-types';
+import { AddNewPanelType, ColorType, SetColorType } from 'src/shared-types';
 import { Flex2, FlexHalf } from 'src/app/layout-styles';
 
 const SinglePanel = ({
-  selectedColor,
   patternToGuess,
   active,
-  addNewPanel
+  addNewPanel,
+  clickedColor,
+  setClickedColor
 }: {
-  selectedColor: ColorType | null,
   patternToGuess: ColorType[],
   active: boolean,
-  addNewPanel: AddNewPanelType
+  addNewPanel: AddNewPanelType,
+  clickedColor: string | ColorType,
+  setClickedColor: SetColorType
 }) => {
+  
   const allUnselected = new Array(4).fill({color: undefined, selected: false});
   const [panelState, setPanelState] = useState(allUnselected);
   const [answers, setAnswers] = useState(new Array(4).fill(''));
@@ -34,16 +37,17 @@ const SinglePanel = ({
   }, [panelState, active]);
   
   useEffect(() => {
-    if (active && selectedColor && selectedCircle !== undefined) {
+    if (active && clickedColor && selectedCircle !== undefined) {
       const selectionArr = panelState.map((item, itemIndex) => {
         return {
           selected: item.selected,
-          color: itemIndex === selectedCircle ? selectedColor : panelState[itemIndex].color
+          color: itemIndex === selectedCircle ? clickedColor : panelState[itemIndex].color
         };
       });
       setPanelState(selectionArr);
+      setClickedColor('');
     }
-  }, [panelState, selectedCircle, selectedColor, active]);
+  }, [panelState, selectedCircle, clickedColor, active, setClickedColor]);
 
   const onCircleClick = (index: number) => {
     if (!active) return;

@@ -4,28 +4,23 @@ import Logo from "src/components/Logo";
 import ShowRules from "src/components/ShowRules";
 import SinglePanel from "src/components/SinglePanel";
 import { toGuess } from "src/utils";
-import { PanelsContainer, StyledLayout } from "src/app/layout-styles";
-import { NewPanelData, ColorType, PanelStateObjectType } from "src/shared-types";
+import { FullContainer, PanelsContainer, StyledLayout } from "src/app/layout-styles";
+import { NewPanelData, PanelStateObjectType } from "src/shared-types";
 import Turns from "src/components/Turns";
+import useColorCircle from "src/components/hooks/useColorCircle";
 
 export type PanelObjectType = {
   panel: undefined | PanelStateObjectType[]
 };
 
 export function App() {
-  const [turns, setTurns] = useState(5); // NUMBER OF TURNS
-  const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
+  const [turns, setTurns] = useState(5);
+  const {clickedColor, setClickedColor} = useColorCircle();
   const [inputPanels, setInputPanels] = useState<PanelObjectType[]>([
     {panel: undefined}
   ]);
   const [patternToGuess, setPatternToGuess] = useState(toGuess());
   console.log('patternToGuess', patternToGuess);
-
-  useEffect(() => {
-    if (selectedColor) {
-      setSelectedColor(null);
-    }
-  },[selectedColor]);
   
   useEffect(() => {
     if (!inputPanels.length) {
@@ -37,10 +32,6 @@ export function App() {
     setTurns(5);
     setPatternToGuess(toGuess());
     setInputPanels([]);
-  };
-
-  const onRightCircleClick = (color: ColorType) => {
-    setSelectedColor(color)
   };
 
   const addNewPanel = ({panelState, correctGuess}: NewPanelData) => {
@@ -61,7 +52,7 @@ export function App() {
   }
 
   return (
-    <>
+    <FullContainer>
       <Logo />
       <ShowRules />
       <Turns turns={turns}/>
@@ -71,21 +62,19 @@ export function App() {
             return (
               <SinglePanel
                 key={index}
+                clickedColor={clickedColor}
+                setClickedColor={setClickedColor}
                 active={index === inputPanels.length-1}
-                selectedColor={selectedColor}
                 patternToGuess={patternToGuess}
                 addNewPanel={addNewPanel}
               />
             )
           })}
         </PanelsContainer>
-        <RightPanel onRightCircleClick={onRightCircleClick}/>
+        <RightPanel setClickedColor={setClickedColor}/>
       </StyledLayout>
-    </>
+    </FullContainer>
   );
 }
 
 export default App;
-
-// Layout containers
-// Custom hooks instead of multiple props
