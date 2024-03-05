@@ -1,15 +1,10 @@
-import styled from "styled-components";
-import RightPanel from "../components/RightPanel";
-import SinglePanel from "../components/SinglePanel";
 import { useEffect, useState } from "react";
-import { ColorType, toGuess } from "../utils";
-
-const StyledLayout = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  height: auto;
-`;
+import RightPanel from "src/components/RightPanel";
+import SinglePanel from "src/components/SinglePanel";
+import { ColorType, toGuess } from "src/utils";
+import { PanelsContainer, StyledLayout } from "src/app/layout-styles";
+import Logo from "src/components/Logo";
+import ShowRules from "src/components/ShowRules";
 
 export function App() {
   const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
@@ -27,10 +22,19 @@ export function App() {
   };
 
   return (
-    <StyledLayout>
-      <SinglePanel selectedColor={selectedColor}/>
-      <RightPanel onRightCircleClick={onRightCircleClick}/>
-    </StyledLayout>
+    <>
+      <Logo />
+      <ShowRules />
+      <StyledLayout>
+        <PanelsContainer>
+          <SinglePanel selectedColor={selectedColor}/>
+          <SinglePanel selectedColor={selectedColor}/>
+          <SinglePanel selectedColor={selectedColor}/>
+          <SinglePanel selectedColor={selectedColor}/>
+        </PanelsContainer>
+        <RightPanel onRightCircleClick={onRightCircleClick}/>
+      </StyledLayout>
+    </>
   );
 }
 

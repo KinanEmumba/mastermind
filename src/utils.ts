@@ -22,3 +22,8 @@ export const toGuess = () => {
   }
   return toGuessArray;
 };
+
+export const rules = `Try to guess the pattern, in both order and color, within ten turns.
+After submitting a row, a small black peg is placed for each code peg from the guess which is correct in both color and position.
+A white peg indicates the existence of a correct color code peg placed in the wrong position.
+And a cross represents the wrong color code.`;
