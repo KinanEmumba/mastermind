@@ -13,7 +13,7 @@ export const ShowTurnsInnerContainer = styled.div`
 `;
 
 const ShowTurnsSpan = styled.span`
-  cursoir: pointer;
+  cursor: pointer;
   font-size: 20px;
   font-weight: 400;
   margin: 10px 0px;
