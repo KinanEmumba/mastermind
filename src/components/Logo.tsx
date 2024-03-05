@@ -1,6 +1,6 @@
-import React from 'react'
-import { ColorType, Colors } from '../utils';
 import styled from 'styled-components';
+import { Colors } from 'src/utils';
+import { ColorType } from 'src/shared-types';
 
 const LogoContainer = styled.div`
   display: flex;
@@ -30,7 +30,13 @@ const Logo = () => {
           </LogoStyle>
         );
       })}
-      {Array.from(name2).map(ch =><LogoStyle>{ch.toUpperCase()}</LogoStyle>)}
+      {Array.from(name2).map((ch, index) => {
+        return (
+          <LogoStyle key={index}>
+            {ch.toUpperCase()}
+          </LogoStyle>
+        )
+      })}
     </LogoContainer>
   )
 }

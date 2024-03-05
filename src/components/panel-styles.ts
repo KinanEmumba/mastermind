@@ -8,7 +8,7 @@ export const StyledPanel = styled.div<{active: boolean}>`
   border: 1px solid black;
   width: 400px;
   max-height: 100px;
-  opacity: ${props => props.active ? 1 : 0.9};
+  opacity: ${props => props.active ? '1' : '0.5'};
 `;
 
 export const TickButton = styled.div`

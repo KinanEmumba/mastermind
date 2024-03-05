@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import Circle from './Circle';
-import { ColorType, Colors } from '../utils';
+import Circle from 'src/components/Circle';
+import { Colors } from 'src/utils';
+import { ColorType } from 'src/shared-types';
 
 const StyledRightPanel = styled.div`
   display: flex;

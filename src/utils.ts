@@ -1,3 +1,5 @@
+import { ColorType } from "./shared-types";
+
 export enum Colors {
   YELLOW = '#ffb400',
   PINK = '#ff5a5e',
@@ -6,8 +8,6 @@ export enum Colors {
   TEAL2 = '#007a87',
   PURPLE = '#7b0051'
 }
-
-export type ColorType = keyof typeof Colors;
 
 export const randomColor = () => {
   const rand = Math.floor(Math.random() * Object.keys(Colors).length);
@@ -32,6 +32,8 @@ export const compareValues = ({
 }) => {
   const currentColors = panelState.map(obj => obj.color);
   let allSameFlag = true;
+  // console.log('patternToGuess', patternToGuess);
+  // console.log('currentColors', currentColors);
   currentColors.forEach((col, index) => {
     allSameFlag = col === patternToGuess[index]
   });

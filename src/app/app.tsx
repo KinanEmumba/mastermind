@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import RightPanel from "src/components/RightPanel";
-import SinglePanel, { PanelStateObjectType } from "src/components/SinglePanel";
 import Logo from "src/components/Logo";
 import ShowRules from "src/components/ShowRules";
-import { ColorType, toGuess } from "src/utils";
+import SinglePanel from "src/components/SinglePanel";
+import { toGuess } from "src/utils";
 import { PanelsContainer, StyledLayout } from "src/app/layout-styles";
+import { ColorType, PanelStateObjectType } from "src/shared-types";
 
 export type PanelObjectType = {
   panel: undefined | PanelStateObjectType[]

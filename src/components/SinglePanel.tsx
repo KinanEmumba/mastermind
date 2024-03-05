@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
-import Circle from './Circle';
-import OutputCircles from './OutputCircles';
-import { ColorType, Colors, compareValues } from '../utils';
-import { StyledPanel, TickButton } from './panel-styles';
-
-export type PanelStateObjectType = {
-  color: ColorType | undefined,
-  selected: boolean
-};
+import Circle from 'src/components/Circle';
+import OutputCircles from 'src/components/OutputCircles';
+import { Colors, compareValues } from 'src/utils';
+import { StyledPanel, TickButton } from 'src/components/panel-styles';
+import { ColorType, PanelStateObjectType } from 'src/shared-types';
 
 const SinglePanel = ({
   selectedColor,
@@ -20,7 +16,6 @@ const SinglePanel = ({
   active: boolean,
   addNewPanel: ({panelState}: {panelState: PanelStateObjectType[]}) => void;
 }) => {
-  console.log('active', active);
   const allUnselected = new Array(4).fill({color: undefined, selected: false});
   const [panelState, setPanelState] = useState(allUnselected);
   const [selectedCircle, setSelectedCircle] = useState<undefined | number>(undefined);
@@ -49,6 +44,7 @@ const SinglePanel = ({
   }, [panelState, selectedCircle, selectedColor, active]);
 
   const onCircleClick = (index: number) => {
+    if (!active) return;
     const selectionArr = panelState.map((item, itemIndex) => {
       return {
         selected: (itemIndex === index),
@@ -79,7 +75,7 @@ const SinglePanel = ({
           />
         )
       })}
-      {allSelected && <TickButton onClick={onTickClick}>
+      {allSelected && active && <TickButton onClick={onTickClick}>
         ✓
       </TickButton>}
       <OutputCircles />

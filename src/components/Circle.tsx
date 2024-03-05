@@ -1,11 +1,5 @@
 import styled from 'styled-components';
-
-export type StyledCircleProps = {
-  color?: string,
-  isSelectable?: boolean,
-  isSelected?: boolean | string,
-  onClick?: () => void
-};
+import { StyledCircleProps } from 'src/shared-types';
 
 const StyledCircleContainer = styled.div`
   flex: 1;
