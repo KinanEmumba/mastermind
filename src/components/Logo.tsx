@@ -24,7 +24,6 @@ const Logo = () => {
   return (
     <LogoContainer>
       {Object.keys(Colors).map((col, index) => {
-        console.log('Colors[col as ColorType]', Colors[col as ColorType]);
         return (
           <LogoStyle key={index} color={Colors[col as ColorType]}>
             {name1[index].toUpperCase()}

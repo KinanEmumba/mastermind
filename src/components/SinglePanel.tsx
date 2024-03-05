@@ -1,39 +1,43 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Circle from './Circle';
 import OutputCircles from './OutputCircles';
-import { ColorType, Colors } from '../utils';
+import { ColorType, Colors, compareValues } from '../utils';
+import { StyledPanel, TickButton } from './panel-styles';
 
-const StyledPanel = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  border: 1px solid black;
-  width: 400px;
-  max-height: 100px;
-`;
+export type PanelStateObjectType = {
+  color: ColorType | undefined,
+  selected: boolean
+};
 
 const SinglePanel = ({
-  selectedColor
+  selectedColor,
+  patternToGuess,
+  active,
+  addNewPanel
 }: {
-  selectedColor: ColorType | null
+  selectedColor: ColorType | null,
+  patternToGuess: ColorType[],
+  active: boolean,
+  addNewPanel: ({panelState}: {panelState: PanelStateObjectType[]}) => void;
 }) => {
+  console.log('active', active);
   const allUnselected = new Array(4).fill({color: undefined, selected: false});
   const [panelState, setPanelState] = useState(allUnselected);
   const [selectedCircle, setSelectedCircle] = useState<undefined | number>(undefined);
   const [allSelected, setAllSelected] = useState(false);
 
   useEffect(() => {
-    let allSelectedFlag = true;
-    panelState.forEach(circle => {
-      allSelectedFlag = !!circle.color && allSelectedFlag
-    });
-    setAllSelected(allSelectedFlag);
-  }, [panelState]);
+    if (active) {
+      let allSelectedFlag = true;
+      panelState.forEach(circle => {
+        allSelectedFlag = !!circle.color && allSelectedFlag
+      });
+      setAllSelected(allSelectedFlag);
+    }
+  }, [panelState, active]);
   
   useEffect(() => {
-    if (selectedColor && selectedCircle !== undefined) {
+    if (active && selectedColor && selectedCircle !== undefined) {
       const selectionArr = panelState.map((item, itemIndex) => {
         return {
           selected: item.selected,
@@ -42,7 +46,7 @@ const SinglePanel = ({
       });
       setPanelState(selectionArr);
     }
-  }, [panelState, selectedCircle, selectedColor]);
+  }, [panelState, selectedCircle, selectedColor, active]);
 
   const onCircleClick = (index: number) => {
     const selectionArr = panelState.map((item, itemIndex) => {
@@ -55,8 +59,16 @@ const SinglePanel = ({
     setPanelState(selectionArr);
   };
 
+  const onTickClick = () => {
+    const correctGuess = compareValues({patternToGuess, panelState});
+    console.log('correctGuess', correctGuess);
+    if (!correctGuess) {
+      addNewPanel({panelState});
+    } else alert('won!');
+  };
+
   return (
-    <StyledPanel>
+    <StyledPanel active={active}>
       {panelState.map((val, index) => {
         return (
           <Circle
@@ -67,7 +79,9 @@ const SinglePanel = ({
           />
         )
       })}
-      {allSelected && '✓'}
+      {allSelected && <TickButton onClick={onTickClick}>
+        ✓
+      </TickButton>}
       <OutputCircles />
     </StyledPanel>
   )
